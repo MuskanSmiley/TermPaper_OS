@@ -1,0 +1,102 @@
+import java.util.*;
+class TermPaper 
+{	
+	public static void main(String as[])
+	{	
+		System.out.println();
+		System.out.println("--------------------------------------------");
+		System.out.println("            Welcome to Gift Shop          ");
+		System.out.println("--------------------------------------------");
+		System.out.println();System.out.println();
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Billing Counter Man: How many Customers have come today?");
+		System.out.print("Watchman: ");
+		int n=sc.nextInt();
+		System.out.println("--------------------------------------------");
+		System.out.println();
+		String name;
+		int gift;int new_gift[]=new int[n+1];
+		int i,wq=0,rq=0;
+		String wait_que[]=new String[n];
+		String ready_que[]=new String[n];
+		String Bill;
+		for(i=0;i<n;i++)
+		{
+			System.out.print("Enter Your name Sir/Madam:");
+			name=sc.next();
+			System.out.print("Enter total number of gifts you have picked "+name+":");
+			gift=sc.nextInt();
+			System.out.print("Would you like to move to the billing queue?");
+			Bill=sc.next();
+			
+			if(Bill.equalsIgnoreCase("N")||Bill.equalsIgnoreCase("No"))
+			{	
+				wait_que[wq]=name;
+				wq++;
+			}
+			else
+			{
+				ready_que[rq]=name;
+				new_gift[rq]=gift;
+				rq++;
+			}
+			
+			System.out.println();
+			System.out.println("--------------------------------------------");
+			System.out.println();
+		}
+		if(wq==0){wq=wq+1;}
+		for(int j=0;wait_que[wq-1]!=null;j++)
+		{
+			System.out.print("Would you like to move to billing queue "+wait_que[j]+"?");
+			Bill=sc.next();
+			if(Bill.equalsIgnoreCase("Y")||Bill.equalsIgnoreCase("Yes"))
+			{	ready_que[rq]=wait_que[j];
+				System.out.print("Enter total number of gifts you have picked "+wait_que[j]+":");
+				new_gift[rq]=sc.nextInt();
+				wait_que[j]=null;
+				rq++;
+			}
+			else{j--;}
+		}
+		System.out.println();
+		System.out.println("The Billing queue formed is as follows:");
+		System.out.println("--------------------------------------------");
+		System.out.println("    Name"+"        "+"Gift_Number");
+		System.out.println("--------------------------------------------");
+		
+		for(int i1=0;i1<n;i1++)
+		{	
+			System.out.println("      "+ready_que[i1]+"               "+new_gift[i1]);
+			System.out.println();
+		}
+		
+		for(int l=0;l<n;l++)
+		{
+			for(int l1=l+1;l1<n;l1++)
+			{
+				if(new_gift[l]>new_gift[l1])
+				{	
+          String swap1=ready_que[l];
+					ready_que[l]=ready_que[l1];
+					ready_que[l1]=swap1;
+					int swap=new_gift[l];
+					new_gift[l]=new_gift[l1];
+					new_gift[l1]=swap;
+				}
+			}
+		}
+
+		System.out.println("The Billing queue formed after priority sort is as follows:");
+		System.out.println("--------------------------------------------");
+		System.out.println("    Name"+"        "+"Gift_Number");
+		System.out.println("--------------------------------------------");
+		for(int i1=0;i1<n;i1++)
+		{	
+			
+			System.out.println("      "+ready_que[i1]+"                "+new_gift[i1]);
+			System.out.println();
+		}
+				
+	}
+}
